@@ -116,13 +116,43 @@ Primary language: English
 
 == TECNOLOGIAS DETECTADAS ==
 
--- Cloud & PaaS --
+-- Server-Side --
 Technology | Description | Popular sites using this technology
-Amazon Web Services - EC2 | Cloud computing service (Elastic Compute Cloud) | www.opera.com, ...
+SSL | A cryptographic protocol providing communication security over the Internet | www.canva.com, gemini.google.com, mail.yahoo.com
 
--- Tools --
+-- Client-Side --
 Technology | Description | Popular sites using this technology
-Webnode: Online web page generator
+JavaScript | Widely-supported programming language commonly used to power client-side dynamic content on websites | sys.eximus-data.com
+
+-- Client-Side Scripting Frameworks --
+Technology | Description | Popular sites using this technology
+Google Hosted Libraries | Google API to retrieve JavaScript libraries | www.ilfattoquotidiano.it, www.inspq.qc.ca, m365.cloud.microsoft
+
+-- Character Encoding --
+Technology | Description | Popular sites using this technology
+UTF8 | UCS Transformation Format 8 bit | www.tiktok.com, www.netflix.com, www.amazon.com
+
+-- HTTP Compression --
+Technology | Description | Popular sites using this technology
+Gzip Content Encoding | Gzip HTTP Compression protocol | www.comss.ru, www.amazon.ca, www.amazon.es
+
+-- Web Browser Targeting --
+Technology | Description | Popular sites using this technology
+X-Frame-Options Same Origin: Do not allow this site to be rendered within an iframe
+X-XSS-Protection Disabled | Cross-site scripting protection is disabled | www.wappalyzer.com, www.virustotal.com, mail.proton.me
+Content Security Policy Report | Report attacks in the browser | www.amazon.in, www.amazon.fr, www.amazon.de
+
+-- Privacy Management --
+Technology | Description | Popular sites using this technology
+P3P | Platform for Privacy Preferences Project allows websites to express their privacy practices | www.aliexpress.com, www.xvideos.com, yandex.ru
+
+-- Doctype --
+Technology | Description | Popular sites using this technology
+HTML5 | Latest revision of the HTML standard, the main markup language on the web | www.msn.com, mail.google.com, accounts.google.com
+
+-- CSS Usage --
+Technology | Description | Popular sites using this technology
+External | Styles defined within an external CSS file | www.linkedin.com, www.google.com, www.hoffmann-group.com
 ```
 
 ---

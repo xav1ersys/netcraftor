@@ -145,7 +145,7 @@ Use responsibly and in accordance with Netcraft's terms of service.
 ## Author
 
 **xav1ersys**
-[x.com/xav1ersys](https://x.com/xav1ersys) · [hackerone.com/xav1ersys](https://hackerone.com/xav1ersys) · [github.com/xav1ersys](https://github.com/xav1ersys)
+- [github.com/xav1ersys](https://github.com/xav1ersys)
 
 ---
 

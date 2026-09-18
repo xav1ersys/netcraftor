@@ -108,11 +108,11 @@ Debug Netcraft's response structure:
 
 ```
 == INFORMAÇÕES GERAIS ==
-Site title: campsmk
-Site rank: Not Present
-Description: SEASON 3 - MK: NATIONAL TOURNAMENTS
-Date first seen: August 2021
-Primary language: Portuguese
+Site title: Google
+Site rank: 76
+Description: Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for
+Date first seen: May 2002
+Primary language: English
 
 == TECNOLOGIAS DETECTADAS ==
 

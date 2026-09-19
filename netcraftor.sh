@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# ============================================================
-#  NETCRAFT EXTRACTOR v1
-#  by: xav1ersys | github.com/xav1ersys
-# ============================================================
+# Netcraft Extractor v1
+# by: xav1ersys | github.com/xav1ersys
 #
-#  Consulta o Site Report público do Netcraft (sitereport.netcraft.com)
-#  e extrai as tabelas de informação do JSON retornado pelo endpoint
-#  ajax=dcg.
+# consulta o site report do netcraft (sitereport.netcraft.com)
+# e tira as tabelas do json que volta com ajax=dcg
 #
-#  Chaves confirmadas ao vivo (via -keys) no JSON de resposta:
-#    background_table, dmarc_table, spf_table, technology_table, webbugs
-# ============================================================
+# chaves que apareceram quando testei com -keys:
+# background_table, dmarc_table, spf_table, technology_table, webbugs
+#
+# obs: se o netcraft mudar o formato isso quebra
+# TODO: ver se dá pra tirar a dependência do perl
+#
 
 BANNER=$(cat <<'BANNER_EOF'
  ,ggg, ,ggggggg,     ,ggggggg,  ,ggggggggggggggg  ,gggg,   ,ggggggggggg,              ,ggg, ,gggggggggggggg ,ggggggggggggggg  _,gggggg,_      ,ggggggggggg,   
@@ -64,7 +64,7 @@ show_help() {
     echo "+-------------------------------------------------------------------+"
 }
 
-# Normaliza o alvo (remove protocolo se já vier com http/https)
+# tira o http(s):// do alvo se vier junto
 normalize_target() {
     local t="$1"
     t="${t#http://}"
@@ -78,15 +78,15 @@ fetch_json() {
     curl -sk "${BASE_URL}?url=https://${target}&ajax=dcg"
 }
 
-# Extrai conteúdo legível de uma seção HTML do Netcraft.
-# Cobre os formatos reais observados no payload:
-#   - tabelas simples label/valor (background_table)
-#   - múltiplas <table> agrupadas por <h3> (technology_table)
-#   - tabelas largas com várias colunas (webbugs)
-#   - seções sem tabela nenhuma, só parágrafos de aviso
-#     (dmarc_table / spf_table quando o domínio não tem registro)
-# Usa perl em modo slurp (-0777) pra não depender de onde caem as
-# quebras de linha dentro do HTML.
+# transforma o html de cada seção em texto
+# cada seção vem de um jeito:
+#   - background_table: tabela simples label/valor
+#   - technology_table: várias tabelas com <h3> em cima
+#   - webbugs: tabela larga, várias colunas
+#   - dmarc/spf sem registro: nem tem tabela, só um <p>
+#     (foi esse que deu mais dor de cabeça)
+# perl com -0777 pq o html vem com quebra de linha
+# em qualquer lugar e o sed/grep não pegava
 parse_table() {
     local html="$1"
 
@@ -109,8 +109,8 @@ parse_table() {
 
         my $found_table = 0;
 
-        # Percorre o HTML na ordem em que aparece, alternando entre
-        # subtítulos <h3> (usados no technology_table) e <table>...</table>
+        # anda pelo html na ordem, pega <h3> e <table> conforme aparecem
+        # (o h3 só importa no technology_table)
         while (/(?:<h3[^>]*>(.*?)<\/h3>)|(?:<table[^>]*>(.*?)<\/table>)/gs) {
             if (defined $1) {
                 print "\n-- " . clean($1) . " --\n";
@@ -134,7 +134,7 @@ parse_table() {
             }
         }
 
-        # Sem tabela nenhuma (ex: DMARC/SPF ausente) -> mostra os parágrafos
+        # sem tabela = dmarc/spf vazio, então joga os <p> na tela
         unless ($found_table) {
             while (/<p[^>]*>(.*?)<\/p>/gs) {
                 my $p = clean($1);
@@ -144,9 +144,9 @@ parse_table() {
     ' <<< "$html"
 }
 
-# Dado um valor JSON (podendo ser string HTML, array ou objeto),
-# imprime seu conteúdo da forma mais legível possível, sem assumir
-# que toda chave é uma tabela HTML (ex: "webbugs" costuma ser array)
+# nem toda chave é html, o webbugs por exemplo às vezes vem
+# como array, então olho o tipo antes de mandar pro parse_table
+# (se for array/objeto só joga no jq mesmo)
 print_value() {
     local raw="$1" table_key="$2"
     local vtype
@@ -170,8 +170,8 @@ print_value() {
     esac
 }
 
-# Lista as chaves de nível superior do JSON retornado, pra descobrir
-# os nomes reais das tabelas sem precisar adivinhar
+# lista as chaves do json, usei isso pra descobrir
+# os nomes das tabelas quando fui montar o script
 list_keys() {
     local target="$1" raw
     raw=$(fetch_json "$target")
@@ -245,7 +245,7 @@ run_raw() {
     fetch_json "$target"
 }
 
-# ---------------- Parsing de argumentos ----------------
+# argumentos
 OUTFILE=""
 ACTIONS=()
 TARGET=""

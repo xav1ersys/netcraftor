@@ -1,0 +1,23 @@
+# editores
+*.swp
+*~
+.vscode/
+.idea/
+
+# sistema
+.DS_Store
+Thumbs.db
+
+# temporários e backups
+*.log
+*.tmp
+*.bak
+*.orig
+
+# saídas do netcraft extractor
+output/
+relatorios/
+
+# segredos
+.env
+*.key

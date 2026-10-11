@@ -15,11 +15,6 @@ Yb, `8dP'     `88  d8'    a  Y8Yb,_    88      d8"     `Y8Yb,  88      `8b      
 
 ### A lightweight Bash tool for extracting structured OSINT data from Netcraft's Site Report — straight from your terminal.
 
-[![Bash](https://img.shields.io/badge/Bash-4EAA25?style=flat&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
-[![jq](https://img.shields.io/badge/jq-required-blue)](https://stedolan.github.io/jq/)
-[![Perl](https://img.shields.io/badge/Perl-required-39457E?logo=perl&logoColor=white)](https://www.perl.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
 </div>
 
 ---
